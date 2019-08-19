@@ -7,11 +7,11 @@ import matplotlib.pyplot as plt
 POP_SIZE = 30
 DNA_SIZE = 10
 CROSS_RATE = 0.5         
-MUTATION_RATE = 0.01    
-N_GENERATIONS = 200
+MUTATION_RATE = 0.005    
+N_GENERATIONS = 30
 
 def function(x):#设定目标函数  Set the aim function
-    return 5*np.sin(x)+np.cos(x)
+    return 5*np.sin(x)+10*np.cos(5*x)
 
 def fitness(pred):#设定适应度函数  Set fitness function
     if pred < 0:#适应度函数不为0  The fitness function should not equal to zero.
@@ -75,8 +75,9 @@ def mutate(child):#变异
 
 pop = np.random.randint(2, size=(POP_SIZE, DNA_SIZE))
 
+y = []
+
 for _ in range(N_GENERATIONS):
-    y = []
     F_values = function(decoding(pop, DNA_SIZE))
     fitness = fitness(F_values)
     maxfit = []
@@ -91,7 +92,7 @@ for _ in range(N_GENERATIONS):
         child = mutate(child)
         parent[:] = child
 
-x1 = range(0, N_GENERATIONS+1)
+x1 = range(0, N_GENERATIONS)
 plt.subplot(1, 1, 1)
 plt.plot(x1, y, 'o-')
 plt.xlabel('N_GENERATIONS')
