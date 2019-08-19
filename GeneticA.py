@@ -4,9 +4,9 @@ import math
 import matplotlib.pyplot as plt
 
 
-POP_SIZE = 100
+POP_SIZE = 30
 DNA_SIZE = 10
-CROSS_RATE = 0.8         
+CROSS_RATE = 0.5         
 MUTATION_RATE = 0.01    
 N_GENERATIONS = 200
 
@@ -50,7 +50,7 @@ def selection(pop,fitness):#轮赌选择  Roulette selection
         for j in range(len(fitness)):
             if j==0:
                 if 0<rand and rand<=fitness_sum[j]:
-                    population_new.append(pop[j])
+                    pop_new.append(pop[j])
 
             else:
                 if fitness_sum[j-1]<rand and rand<=fitness_sum[j]:
@@ -78,7 +78,7 @@ pop = np.random.randint(2, size=(POP_SIZE, DNA_SIZE))
 for _ in range(N_GENERATIONS):
     y = []
     F_values = function(decoding(pop, DNA_SIZE))
-    fitness = F_values
+    fitness = fitness(F_values)
     maxfit = []
     maxfit = pop[np.argmax(fitness), :]
     print("Most fitted DNA: ", maxfit)
@@ -90,7 +90,6 @@ for _ in range(N_GENERATIONS):
         child = crossover(parent, pop_cp)
         child = mutate(child)
         parent[:] = child
-    pop = np.array(pop)
 
 x1 = range(0, N_GENERATIONS+1)
 plt.subplot(1, 1, 1)
